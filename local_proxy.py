@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys
 import os
@@ -7,10 +7,10 @@ import ssl
 import threading
 import time
 import re
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from SocketServer import ThreadingMixIn
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from socketserver import ThreadingMixIn
 from subprocess import Popen, PIPE
-import httplib
+import http.client as httplib
 from argparse import ArgumentParser
 
 PROXY_SERVER_SECRET_HEADER = 'X-Proxy-Secret'
@@ -200,7 +200,7 @@ def main():
     httpd = ThreadingHTTPServer(server_address, ProxyRequestHandler)
 
     sa = httpd.socket.getsockname()
-    print "Serving HTTP Proxy on", sa[0], "port", sa[1], "..."
+    print("Serving HTTP Proxy on", sa[0], "port", sa[1], "...")
     httpd.serve_forever()
 
 
